@@ -1,0 +1,41 @@
+import sys
+
+
+def sep(n, m):
+    '''
+    第i个人不分，则剩余n个分给m-1个人
+    第i个人分，则可以分1至n个，设分i个，则剩余n-i个分给m-1个人
+    '''
+    if not n: return 1
+    if not m: return 0
+    res = []
+    slen = n
+    stack = [0 for i in range(m)]
+    do_sep(stack, n + 1, m, res, slen)
+    for i in res:
+        for item in i:
+            print('|', end='')
+            print('*' * item, end='')
+        print('\n')
+    return res
+
+
+def do_sep(stack, n, m, res, slen):
+    s = stack[:]
+    if not n or not m:
+        if sum(s) == slen:
+            res.append(s)
+        return res
+    for num in range(n):
+        s[-m] = num
+        do_sep(s, n - num, m - 1, res, slen)
+        s[-m] = 0
+    return res
+
+
+if __name__ == "__main__":
+    line = input()
+    line = line.split(' ')
+    n, m = int(line[0]), int(line[1])
+    res = sep(n, m)
+    print(res)
