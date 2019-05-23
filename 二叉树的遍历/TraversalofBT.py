@@ -37,7 +37,14 @@ class Solution:
         if not root: return
         if root.left:
             self.mid(root.left, res)
-        res.append(root)
+        res.append(root.val)
         if root.right:
             self.mid(root.right, res)
         return res
+
+
+if __name__ == "__main__":
+    so = Solution()
+    node = TreeNode(0)
+    root = node.initTree()
+    print(so.traversal_mid_recur(root))

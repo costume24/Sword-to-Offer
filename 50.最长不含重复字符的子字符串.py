@@ -2,6 +2,7 @@ from exeTime import exeTime
 
 
 class Solution:
+    @exeTime
     def longestSubstringWithoutDuplication(self, s):
         '''动态规划解法
         两个辅助数组：
@@ -33,8 +34,24 @@ class Solution:
         maxIndex = longest.index(maxLen)
         return s[maxIndex - maxLen + 1:maxLen + 1]
 
+    @exeTime
+    def longestSubstringWithoutDuplication2(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        st = {}
+        i, ans = 0, 0
+        for j in range(len(s)):
+            if s[j] in st:
+                i = max(st[s[j]], i)
+            ans = max(ans, j - i + 1)
+            st[s[j]] = j + 1
+        return ans
+
 
 if __name__ == "__main__":
     so = Solution()
     s = 'arabcacrf'
     print(so.longestSubstringWithoutDuplication(s))
+    print(so.longestSubstringWithoutDuplication2(s))

@@ -17,6 +17,7 @@ class Solution:
                     count += 1
         return count
 
+    @exeTime
     def NumberOf1Between1AndN_Solution2(self, n):
         if not n: return 0
         numLen = len(str(n))
