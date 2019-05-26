@@ -32,16 +32,19 @@ class TreeNode:
 class Solution:
     def IsBalanced_Solution(self, pRoot, depth):
         '''后序遍历，遍历每个节点的时候记录它的深度
+        自底向上，每个节点只需要遍历一次
+        若自顶向下，则判断上层节点时，需要多次遍历下层节点
+        类似动态规划的思想
         '''
         if not pRoot:
-            depth = 0
+            depth = [0]
             return True
-        left, right = 0, 0
+        left, right = [0], [0]
         if self.IsBalanced_Solution(pRoot.left,left) \
             and self.IsBalanced_Solution(pRoot.right,right):
-            diff = left - right
+            diff = left[0] - right[0]
             if diff <= 1 and diff >= -1:
-                depth = 1 + left if left > right else 1 + right
+                depth[0] = 1 + left[0] if left[0] > right[0] else 1 + right[0]
                 return True
         return False
 

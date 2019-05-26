@@ -48,11 +48,34 @@ class Solution:
             rear = rear.next
         return None
 
+    @exeTime
+    def EntryNodeOfLoop2(self, pHead):
+        '''漫画小灰解法
+        1.快慢指针入环
+        2.两指针相遇时，将一个指针放回头节点，然后同时一步一步走，再次相遇时即为入口节点
+        '''
+        if not pHead: return None
+        slow, fast = pHead, pHead
+        while slow.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                slow = pHead
+                while slow.next and fast.next:
+                    if slow == fast: return slow.val
+                    slow = slow.next
+                    fast = fast.next
+        return
+
 
 if __name__ == "__main__":
     li = ListNode(0)
     so = Solution()
     s = [1, 2, 3, 4, 5, 6]
-    entry = 2
+    entry = 0
     node = li.go(s, entry)
     print(so.EntryNodeOfLoop(node[0]))
+    s = [1, 2, 3, 4, 5, 6]
+    entry = 0
+    node = li.go(s, entry)
+    print(so.EntryNodeOfLoop2(node[0]))
